@@ -1,5 +1,11 @@
 # EverydayCalendar
 
+A personal gold star system for your habits
+
+## Credits
+This application is inspired by "The Every Day Calendar" from Simone Giertz's Kickstarter page.
+
+## Angular application
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
 
 ## Development server
