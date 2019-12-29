@@ -3,30 +3,64 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+
     plugins: [
       require('karma-jasmine'),
+      require('karma-jasmine-given'),
       require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'),
+      require('karma-mocha-reporter'),
+      require('karma-jasmine-diff-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
-    client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+
+    // TRIGGER
+    autoWatch: true,
+    singleRun: false,
+    restartOnFileChange: true,
+
+    // BUILD
+    frameworks: ['jasmine-given', 'jasmine', '@angular-devkit/build-angular'],
+    basePath: '',
+    angularCli: {
+      environment: 'dev'
     },
-    coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, './coverage/everyday-calendar'),
-      reports: ['html', 'lcovonly', 'text-summary'],
-      fixWebpackSourcePaths: true
-    },
-    reporters: ['progress', 'kjhtml'],
+
+    // RUN
     port: 9876,
+    browsers: ['ChromeHeadless'],
+
+    // REPORT
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false,
-    restartOnFileChange: true
+
+    reporters: ['jasmine-diff', 'mocha'],
+
+    jasmineDiffReporter: {
+      color: {
+        expectedBg: 'bgGreen',
+        expectedWhitespaceBg: 'bgGreen',
+        expectedFg: 'black',
+
+        actualBg: 'bgRed',
+        actualWhitespaceBg: 'bgRed',
+        actualFg: 'black',
+        
+        warningBg: 'bgYellow',
+        warningWhitespaceBg: 'bgYellow',
+        warningFg: 'black',
+      }
+    },
+
+    mochaReporter: {
+      output: 'minimal'
+    },
+
+    coverageIstanbulReporter: {
+      dir: require('path').join(__dirname, './coverage/llama-date'),
+      reports: ['html', 'lcovonly', 'text-summary'],
+      fixWebpackSourcePaths: true
+    }
+
   });
 };
